@@ -6,7 +6,7 @@ async function run() {
     const myToken = core.getInput("action-token");
     const projectUrl = core.getInput("project-url");
     const columnName = core.getInput("column-name");
-    const labelName = core.getInput("label-name");
+    const labelName = core.getInput("label-name").split(",");
     const milestoneName = core.getInput("milestone-name");
     const ignoreList = core.getInput("columns-to-ignore");
     const octokit = new github.GitHub(myToken);
@@ -33,7 +33,7 @@ async function run() {
 
     if(baseObject && labelName){
         baseObject.labels.forEach(function(item){
-            if(labelName == item.name){
+            if(labelName.includes(item.name)){
                 found = true;
             }
         });
